@@ -18,34 +18,21 @@ def HeadCounter(map):
                     inTeam =  False
                     teamIndex = 0
                     while not inTeam and teamIndex < len(teams):
-                        print("Checking team with bounds: ", teams[teamIndex].bound)
+                        #print("Checking team with bounds: ", teams[teamIndex].bound)
                         inTeam = teams[teamIndex].isInTeam(x,y)
                         teamIndex += 1
 
                     #new team if it doesnt qualify
                     if not inTeam:
-                        print("Making new team")
+                        #print("Making new team")
                         teams.append(Team(x,y))
     return teams, headcount
 
-def ReturnCount(teams):
-    teamsDict = {} #dict of size of team to num of teams
-    for team in teams:
-        if team.count in teamsDict:
-            teamsDict[team.count] += 1
-            pass
-        teamsDict[team.count] = 1
-    return teamsDict
-
 if __name__ == "__main__":
-    inputMap = [[1,1,0],[1,1,0]]
-    #[[1,1,0,0,0,0,1,1], [1,1,0,1,1,0,1,1],[0,0,0,1,1,0,0,0], [1,1,0,1,1,0,1,1], [1,1,0,0,0,0,1,1]]
+    inputMap = [[1,1,0,0,0,0,1,1], [1,1,0,1,1,0,1,1],[0,0,0,1,1,0,0,0], [1,1,0,1,1,0,1,1], [1,1,0,0,0,0,1,1]]
     print("The 2D map to be counted: \n",inputMap)
 
     teams, headcount = HeadCounter(inputMap)
-    print("There are ", headcount, " people with ", len(teams), " teams")
-    teamsDict = ReturnCount(teams)
-    for key in list(teamsDict.keys()):
-        print(teamsDict[key], "Teams with ", key, " people")
+    print(len(teams), " teams with ", sorted(team.count for team in teams), " people, totalling ", headcount)
 
 
