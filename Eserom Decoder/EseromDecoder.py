@@ -9,17 +9,17 @@ keyEserom =  {"A":"10","B":"0111","C":"0101","D":"011",
         "5":"11111", "6":"01111", "7":"00111", "8":"00011",
         "9":"00001","0":"00000", " ":"  ", "":" "}
 
+invKeyEserom = {val:key for key, val in keyEserom.items()}
+
 def EseromDecode(msg):
     words = msg.split("  ") #split words
     out = []
     for word in words: #decode each word
         wordOut = []
-        wordOut += [
-                list(keyEserom.keys())[list(keyEserom.values()).index(char)]
-                for char in word.split(" ")] #disgusting list comprehension bc I messed up the dict
-
-        out.append(''.join(wordOut))# join decoded characters and append to out as a word
+        wordOut += [invKeyEserom[char] for char in word.split(" ")] #char translation
         
+        out.append(''.join(wordOut))# join decoded characters and append to out as a word
+
     return ' '.join(out) # join words as a string
 
 if __name__ == "__main__":
